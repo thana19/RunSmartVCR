@@ -35,7 +35,13 @@ const translations = {
       repetitionDesc: "Very hard. Improves speed and economy.",
     },
     mins: "Mins",
-    km: "km"
+    km: "km",
+    inputMethodLabel: "Input Method",
+    byDistance: "Distance",
+    byPace: "Avg Pace",
+    paceLabel: "Average Pace",
+    min: "Min",
+    sec: "Sec"
   },
   th: {
     title: "RunSmart VCR Calculator",
@@ -69,7 +75,13 @@ const translations = {
       repetitionDesc: "หนักมาก ช่วยเรื่องความเร็วและเศรษฐศาสตร์การวิ่ง (Running Economy)",
     },
     mins: "นาที",
-    km: "กม."
+    km: "กม.",
+    inputMethodLabel: "เลือกวิธีระบุข้อมูล",
+    byDistance: "ระยะทาง",
+    byPace: "เพซเฉลี่ย",
+    paceLabel: "ระบุเพซเฉลี่ย",
+    min: "นาที",
+    sec: "วินาที"
   }
 };
 
