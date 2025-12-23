@@ -4,8 +4,10 @@ import InputForm from './components/InputForm';
 import Results from './components/Results';
 import AiCoach from './components/AiCoach';
 import { Activity } from 'lucide-react';
+import { useTranslation } from './utils/i18n';
 
 const App: React.FC = () => {
+  const { t } = useTranslation();
   const [result, setResult] = useState<CalculationResult | null>(null);
 
   const calculateZones = (duration: TestDuration, distanceKm: number) => {
@@ -14,71 +16,54 @@ const App: React.FC = () => {
     const avgPaceSec = timeInSeconds / distanceKm;
 
     // 2. Estimate Threshold Pace (T-Pace)
-    // If 60 min test, Avg Pace = T-Pace
-    // If 30 min test, Avg Pace is ~faster than T-Pace. 
-    // Joe Friel / Jack Daniels approx: 30min race pace is roughly 102-105% of T-Pace intensity.
-    // So T-Pace (slower) = AvgPace * 1.05 (approx for simplicity and safety)
     let tPaceSec = avgPaceSec;
     if (duration === TestDuration.MIN_30) {
       tPaceSec = avgPaceSec * 1.05; 
     }
 
     // 3. Estimate VO2 Max
-    // Simple formula based on distance in meters for specific times
-    // Or standard metabolic cost formula.
-    // Approx VO2 = (Velocity m/min - 133) * 0.172 + 33.3 (very rough, let's use a simpler distance based reg)
-    // Cooper (12m): (Dist_m - 504.9) / 44.73.
-    // Let's extrapolate Cooper.
     const distMeters = distanceKm * 1000;
     const velocityMPerMin = distMeters / duration;
     // Jack Daniels estimation formula approximation for display purposes
-    const vo2Max = 0.182258 * velocityMPerMin + 4.650; // VERY rough approximation for steady state
+    const vo2Max = 0.182258 * velocityMPerMin + 4.650; 
 
     // 4. Define Zones based on Threshold Pace (T-Pace)
-    // Zone 1 (Easy): 120-140% of T-Pace (Slower) -> T-Pace * 1.2 to 1.4
-    // Zone 2 (Marathon): 110-120%
-    // Zone 3 (Threshold): 98-105% (Around T-Pace)
-    // Zone 4 (Interval): 90-98% (Faster)
-    // Zone 5 (Repetition): < 90%
-    
-    // Note: Pace is inverse of speed. Higher % of T-Pace Speed = Lower % of T-Pace Time.
-    // Let's stick to Speed percentages converted to Pace.
-    // T-Speed = 1 / tPaceSec
+    // Using localized strings from translation hook
     
     const zones: TrainingZone[] = [
         {
-            name: 'Easy / Recovery',
-            description: 'Warm up, cool down, and recovery runs. Builds aerobic base.',
+            name: t.zones.easy,
+            description: t.zones.easyDesc,
             minPace: tPaceSec * 1.40, 
             maxPace: tPaceSec * 1.25,
             color: 'bg-blue-500'
         },
         {
-            name: 'Marathon Pace',
-            description: 'Steady aerobic running. Used for long runs.',
+            name: t.zones.marathon,
+            description: t.zones.marathonDesc,
             minPace: tPaceSec * 1.25,
             maxPace: tPaceSec * 1.10,
             color: 'bg-green-500'
         },
         {
-            name: 'Threshold',
-            description: 'Comfortably hard. Improves lactate clearance.',
+            name: t.zones.threshold,
+            description: t.zones.thresholdDesc,
             minPace: tPaceSec * 1.05,
             maxPace: tPaceSec * 0.98,
             color: 'bg-yellow-500'
         },
         {
-            name: 'Interval',
-            description: 'Hard effort. Improves VO2 Max.',
+            name: t.zones.interval,
+            description: t.zones.intervalDesc,
             minPace: tPaceSec * 0.98,
             maxPace: tPaceSec * 0.90,
             color: 'bg-orange-500'
         },
         {
-            name: 'Repetition',
-            description: 'Very hard. Improves speed and economy.',
+            name: t.zones.repetition,
+            description: t.zones.repetitionDesc,
             minPace: tPaceSec * 0.90,
-            maxPace: tPaceSec * 0.85, // Cap at some reasonable fast pace
+            maxPace: tPaceSec * 0.85, 
             color: 'bg-red-500'
         }
     ];
@@ -103,8 +88,8 @@ const App: React.FC = () => {
                <Activity className="text-white w-6 h-6" />
              </div>
              <div>
-                <h1 className="text-xl font-bold text-white tracking-tight">RunSmart <span className="text-emerald-400">VCR</span></h1>
-                <p className="text-xs text-slate-400">Velocity & Capacity Calculator</p>
+                <h1 className="text-xl font-bold text-white tracking-tight">{t.title}</h1>
+                <p className="text-xs text-slate-400">{t.subtitle}</p>
              </div>
           </div>
         </div>
@@ -115,9 +100,9 @@ const App: React.FC = () => {
         {/* Left Column: Input */}
         <div className="lg:col-span-4 space-y-6">
           <div className="prose prose-invert">
-            <h2 className="text-2xl font-bold mb-2">Calculate Your Zones</h2>
+            <h2 className="text-2xl font-bold mb-2">{t.sectionTitle}</h2>
             <p className="text-slate-400 text-sm mb-6">
-              Enter your results from a 30-minute or 60-minute all-out time trial to determine your Threshold Pace and personalized training zones.
+              {t.sectionDesc}
             </p>
           </div>
           <InputForm onCalculate={calculateZones} />
@@ -133,9 +118,9 @@ const App: React.FC = () => {
           ) : (
             <div className="h-full flex flex-col items-center justify-center bg-slate-800/50 rounded-3xl border border-dashed border-slate-700 p-12 text-center">
                <Activity className="w-16 h-16 text-slate-600 mb-4" />
-               <h3 className="text-xl font-bold text-slate-400 mb-2">No Data Yet</h3>
+               <h3 className="text-xl font-bold text-slate-400 mb-2">{t.noDataTitle}</h3>
                <p className="text-slate-500 max-w-sm">
-                 Complete the form on the left to see your VCR analysis, threshold pace, and AI coaching insights.
+                 {t.noDataDesc}
                </p>
             </div>
           )}

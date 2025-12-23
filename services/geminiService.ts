@@ -7,7 +7,7 @@ const formatPace = (seconds: number): string => {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 };
 
-export const getCoachingAdvice = async (data: CalculationResult): Promise<string> => {
+export const getCoachingAdvice = async (data: CalculationResult, lang: string): Promise<string> => {
   try {
     const apiKey = process.env.API_KEY;
     if (!apiKey) {
@@ -19,6 +19,10 @@ export const getCoachingAdvice = async (data: CalculationResult): Promise<string
     // Using gemini-3-flash-preview for fast text generation
     const model = "gemini-3-flash-preview";
 
+    const languageInstruction = lang === 'th' 
+      ? "IMPORTANT: Please answer entirely in Thai language (ภาษาไทย). Use running terminology commonly used by Thai runners (e.g., maintain English terms for specific zones like 'Threshold' or 'Interval' if appropriate, but explain in Thai)."
+      : "Please answer in English.";
+
     const prompt = `
       You are an expert running coach. Analyze the following runner's data from a time trial test.
       
@@ -27,6 +31,8 @@ export const getCoachingAdvice = async (data: CalculationResult): Promise<string
       Calculated Threshold Pace: ${formatPace(data.thresholdPace)} /km
       Estimated VO2 Max: ${data.vo2MaxEstimate.toFixed(1)} ml/kg/min
       
+      ${languageInstruction}
+
       Please provide:
       1. A brief assessment of their current fitness level.
       2. Three specific training tips to improve their Threshold Pace.
@@ -43,6 +49,8 @@ export const getCoachingAdvice = async (data: CalculationResult): Promise<string
     return response.text || "Unable to generate advice at this time.";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "Sorry, I couldn't connect to the AI coach right now. Please try again later.";
+    return lang === 'th' 
+      ? "ขออภัย ไม่สามารถเชื่อมต่อกับ AI Coach ได้ในขณะนี้ โปรดลองใหม่อีกครั้งภายหลัง"
+      : "Sorry, I couldn't connect to the AI coach right now. Please try again later.";
   }
 };

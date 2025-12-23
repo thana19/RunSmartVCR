@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { TestDuration } from '../types';
 import { Timer, Ruler, Calculator } from 'lucide-react';
+import { useTranslation } from '../utils/i18n';
 
 interface InputFormProps {
   onCalculate: (duration: TestDuration, distance: number) => void;
 }
 
 const InputForm: React.FC<InputFormProps> = ({ onCalculate }) => {
+  const { t } = useTranslation();
   const [duration, setDuration] = useState<TestDuration>(TestDuration.MIN_30);
   const [distance, setDistance] = useState<string>('');
 
@@ -22,14 +24,14 @@ const InputForm: React.FC<InputFormProps> = ({ onCalculate }) => {
     <div className="bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-700">
       <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
         <Calculator className="w-6 h-6 text-emerald-400" />
-        Input Data
+        {t.inputTitle}
       </h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Duration Selection */}
         <div>
           <label className="block text-sm font-medium text-slate-400 mb-3">
-            Test Duration (Time Trial)
+            {t.durationLabel}
           </label>
           <div className="grid grid-cols-2 gap-4">
             <button
@@ -42,7 +44,7 @@ const InputForm: React.FC<InputFormProps> = ({ onCalculate }) => {
               }`}
             >
               <Timer className="w-5 h-5" />
-              <span className="font-bold">30 Mins</span>
+              <span className="font-bold">30 {t.mins}</span>
             </button>
             <button
               type="button"
@@ -54,7 +56,7 @@ const InputForm: React.FC<InputFormProps> = ({ onCalculate }) => {
               }`}
             >
               <Timer className="w-5 h-5" />
-              <span className="font-bold">60 Mins</span>
+              <span className="font-bold">60 {t.mins}</span>
             </button>
           </div>
         </div>
@@ -62,7 +64,7 @@ const InputForm: React.FC<InputFormProps> = ({ onCalculate }) => {
         {/* Distance Input */}
         <div>
           <label htmlFor="distance" className="block text-sm font-medium text-slate-400 mb-2">
-            Distance Covered (km)
+            {t.distanceLabel}
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -86,7 +88,7 @@ const InputForm: React.FC<InputFormProps> = ({ onCalculate }) => {
           type="submit"
           className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-4 rounded-xl shadow-lg transform transition-all hover:scale-[1.02] active:scale-[0.98]"
         >
-          Calculate VCR
+          {t.calculateBtn}
         </button>
       </form>
     </div>
