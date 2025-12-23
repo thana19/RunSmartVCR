@@ -41,7 +41,14 @@ const translations = {
     byPace: "Avg Pace",
     paceLabel: "Average Pace",
     min: "Min",
-    sec: "Sec"
+    sec: "Sec",
+    // Settings
+    settingsTitle: "API Key Settings",
+    settingsDesc: "Enter your Gemini API Key to enable AI features",
+    saveBtn: "Save",
+    saved: "Saved!",
+    getFreeKey: "Get Free API Key",
+    apiKeyPlaceholder: "Enter your API Key"
   },
   th: {
     title: "RunSmart VCR Calculator",
@@ -81,7 +88,14 @@ const translations = {
     byPace: "เพซเฉลี่ย",
     paceLabel: "ระบุเพซเฉลี่ย",
     min: "นาที",
-    sec: "วินาที"
+    sec: "วินาที",
+    // Settings
+    settingsTitle: "ตั้งค่า API Key",
+    settingsDesc: "กรอก Gemini API Key เพื่อใช้งานฟีเจอร์ AI",
+    saveBtn: "บันทึก",
+    saved: "บันทึกแล้ว!",
+    getFreeKey: "รับ API Key ฟรี",
+    apiKeyPlaceholder: "กรอก API Key ของคุณ"
   }
 };
 

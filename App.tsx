@@ -3,12 +3,14 @@ import { CalculationResult, TestDuration, TrainingZone } from './types';
 import InputForm from './components/InputForm';
 import Results from './components/Results';
 import AiCoach from './components/AiCoach';
-import { Activity } from 'lucide-react';
+import SettingsModal from './components/SettingsModal';
+import { Activity, Settings as SettingsIcon } from 'lucide-react';
 import { useTranslation } from './utils/i18n';
 
 const App: React.FC = () => {
   const { t } = useTranslation();
   const [result, setResult] = useState<CalculationResult | null>(null);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const calculateZones = (duration: TestDuration, distanceKm: number) => {
     // 1. Calculate Average Pace (seconds per km)
@@ -92,6 +94,14 @@ const App: React.FC = () => {
                 <p className="text-xs text-slate-400">{t.subtitle}</p>
              </div>
           </div>
+          
+          <button
+            onClick={() => setIsSettingsOpen(true)}
+            className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors border border-slate-700"
+            aria-label="Settings"
+          >
+            <SettingsIcon className="w-5 h-5" />
+          </button>
         </div>
       </header>
 
@@ -126,6 +136,11 @@ const App: React.FC = () => {
           )}
         </div>
       </main>
+
+      <SettingsModal 
+        isOpen={isSettingsOpen} 
+        onClose={() => setIsSettingsOpen(false)} 
+      />
     </div>
   );
 };

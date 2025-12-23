@@ -9,9 +9,11 @@ const formatPace = (seconds: number): string => {
 
 export const getCoachingAdvice = async (data: CalculationResult, lang: string): Promise<string> => {
   try {
-    const apiKey = process.env.API_KEY;
+    // Try to get key from localStorage first, then fallback to env
+    const apiKey = localStorage.getItem('gemini_api_key') || process.env.API_KEY;
+    
     if (!apiKey) {
-      throw new Error("API Key is missing.");
+      throw new Error("API Key is missing. Please check your settings.");
     }
 
     const ai = new GoogleGenAI({ apiKey });
@@ -49,8 +51,9 @@ export const getCoachingAdvice = async (data: CalculationResult, lang: string): 
     return response.text || "Unable to generate advice at this time.";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return lang === 'th' 
-      ? "ขออภัย ไม่สามารถเชื่อมต่อกับ AI Coach ได้ในขณะนี้ โปรดลองใหม่อีกครั้งภายหลัง"
-      : "Sorry, I couldn't connect to the AI coach right now. Please try again later.";
+    const errorMsg = lang === 'th'
+      ? "ขออภัย ไม่สามารถเชื่อมต่อกับ AI Coach ได้ (กรุณาตรวจสอบ API Key ที่เมนูตั้งค่า)"
+      : "Sorry, I couldn't connect to the AI coach. Please check your API Key in settings.";
+    return errorMsg;
   }
 };
