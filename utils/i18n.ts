@@ -4,7 +4,7 @@ type Language = 'en' | 'th';
 
 const translations = {
   en: {
-    title: "RunSmart VCR Calculator",
+    title: "RunSmart VCR",
     subtitle: "Velocity & Capacity Calculator",
     sectionTitle: "Calculate Your Zones",
     sectionDesc: "Enter your results from a 30-minute or 60-minute all-out time trial to determine your Threshold Pace and personalized training zones.",
@@ -43,12 +43,7 @@ const translations = {
     min: "Min",
     sec: "Sec",
     // Settings
-    settingsTitle: "Settings",
-    accountTitle: "Account",
-    signInGoogle: "Sign in with Google",
-    signOut: "Sign Out",
-    loggedInAs: "Signed in as",
-    apiKeyTitle: "API Key Configuration",
+    settingsTitle: "API Key Settings",
     settingsDesc: "Enter your Gemini API Key to enable AI features",
     saveBtn: "Save",
     saved: "Saved!",
@@ -62,9 +57,14 @@ const translations = {
     planBtn: "Create 6-Week Plan",
     planTitle: "6-Week Training Schedule",
     generatingPlan: "Designing your 6-week plan...",
+    // Auth
+    accountTitle: "User Account",
+    loggedInAs: "Logged in as",
+    signOut: "Sign Out",
+    signInGoogle: "Sign in with Google"
   },
   th: {
-    title: "RunSmart VCR Calculator",
+    title: "RunSmart VCR",
     subtitle: "เครื่องคำนวณความเร็วและสมรรถนะ",
     sectionTitle: "คำนวณโซนการฝึกซ้อม",
     sectionDesc: "กรอกผลการวิ่งจาก Time Trial 30 หรือ 60 นาที เพื่อหาค่า Threshold Pace และโซนการฝึกซ้อมเฉพาะบุคคลของคุณ",
@@ -103,12 +103,7 @@ const translations = {
     min: "นาที",
     sec: "วินาที",
     // Settings
-    settingsTitle: "ตั้งค่า",
-    accountTitle: "บัญชีผู้ใช้",
-    signInGoogle: "เข้าสู่ระบบด้วย Google",
-    signOut: "ออกจากระบบ",
-    loggedInAs: "เข้าสู่ระบบในชื่อ",
-    apiKeyTitle: "ตั้งค่า API Key",
+    settingsTitle: "ตั้งค่า API Key",
     settingsDesc: "กรอก Gemini API Key เพื่อใช้งานฟีเจอร์ AI",
     saveBtn: "บันทึก",
     saved: "บันทึกแล้ว!",
@@ -122,6 +117,11 @@ const translations = {
     planBtn: "สร้างตารางซ้อม 6 สัปดาห์",
     planTitle: "ตารางฝึกซ้อม 6 สัปดาห์",
     generatingPlan: "กำลังออกแบบตารางฝึกซ้อม...",
+    // Auth
+    accountTitle: "บัญชีผู้ใช้",
+    loggedInAs: "เข้าสู่ระบบในชื่อ",
+    signOut: "ออกจากระบบ",
+    signInGoogle: "เข้าสู่ระบบด้วย Google"
   }
 };
 
