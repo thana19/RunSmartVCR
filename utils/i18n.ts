@@ -48,7 +48,11 @@ const translations = {
     saveBtn: "Save",
     saved: "Saved!",
     getFreeKey: "Get Free API Key",
-    apiKeyPlaceholder: "Enter your API Key"
+    apiKeyPlaceholder: "Enter your API Key",
+    // Sharing
+    shareBtn: "Share Analysis",
+    shareTitle: "RunSmart VCR Analysis",
+    copySuccess: "Copied!",
   },
   th: {
     title: "RunSmart VCR Calculator",
@@ -95,7 +99,11 @@ const translations = {
     saveBtn: "บันทึก",
     saved: "บันทึกแล้ว!",
     getFreeKey: "รับ API Key ฟรี",
-    apiKeyPlaceholder: "กรอก API Key ของคุณ"
+    apiKeyPlaceholder: "กรอก API Key ของคุณ",
+    // Sharing
+    shareBtn: "แชร์ผลวิเคราะห์",
+    shareTitle: "ผลวิเคราะห์ RunSmart VCR",
+    copySuccess: "คัดลอกแล้ว!",
   }
 };
 

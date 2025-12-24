@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CalculationResult } from '../types';
 import { getCoachingAdvice } from '../services/geminiService';
-import { Sparkles, Bot, ChevronRight, Loader2 } from 'lucide-react';
+import { Sparkles, Bot, ChevronRight, Loader2, Share2, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { useTranslation } from '../utils/i18n';
 
@@ -14,11 +14,13 @@ const AiCoach: React.FC<AiCoachProps> = ({ data }) => {
   const [advice, setAdvice] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [hasFetched, setHasFetched] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
 
   // Reset when data changes significantly (optional, but good for new calculations)
   useEffect(() => {
     setAdvice('');
     setHasFetched(false);
+    setCopied(false);
   }, [data]);
 
   const handleGetAdvice = async () => {
@@ -29,6 +31,38 @@ const AiCoach: React.FC<AiCoachProps> = ({ data }) => {
     setAdvice(result);
     setLoading(false);
     setHasFetched(true);
+  };
+
+  const formatPace = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleShare = async () => {
+    if (!data || !advice) return;
+
+    const stats = `${t.thresholdPace}: ${formatPace(data.thresholdPace)}/km\n${t.vo2Max}: ${data.vo2MaxEstimate.toFixed(1)}`;
+    const textToShare = `${t.shareTitle}\n\n${stats}\n\n${advice}\n\nVia RunSmart VCR`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: t.shareTitle,
+          text: textToShare,
+        });
+      } catch (error) {
+        console.log('Error sharing', error);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(textToShare);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (error) {
+        console.error('Failed to copy', error);
+      }
+    }
   };
 
   if (!data) return null;
@@ -56,6 +90,15 @@ const AiCoach: React.FC<AiCoachProps> = ({ data }) => {
               <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           )}
+          {advice && (
+             <button
+              onClick={handleShare}
+              className="flex items-center gap-2 bg-indigo-500/80 hover:bg-indigo-400 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-indigo-500/20 text-sm"
+            >
+              {copied ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
+              {copied ? t.copySuccess : t.shareBtn}
+            </button>
+          )}
         </div>
 
         {loading && (
@@ -67,7 +110,6 @@ const AiCoach: React.FC<AiCoachProps> = ({ data }) => {
 
         {advice && (
           <div className="prose prose-invert prose-indigo max-w-none bg-black/20 p-6 rounded-xl border border-white/5">
-             {/* Using a simple Markdown renderer or just displaying text with whitespace handling if simple */}
              <div className="whitespace-pre-wrap text-slate-200 leading-relaxed">
                <ReactMarkdown>{advice}</ReactMarkdown>
              </div>
