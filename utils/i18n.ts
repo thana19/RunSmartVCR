@@ -53,6 +53,10 @@ const translations = {
     shareBtn: "Share Analysis",
     shareTitle: "RunSmart VCR Analysis",
     copySuccess: "Copied!",
+    // Training Plan
+    planBtn: "Create 6-Week Plan",
+    planTitle: "6-Week Training Schedule",
+    generatingPlan: "Designing your 6-week plan...",
   },
   th: {
     title: "RunSmart VCR Calculator",
@@ -104,6 +108,10 @@ const translations = {
     shareBtn: "แชร์ผลวิเคราะห์",
     shareTitle: "ผลวิเคราะห์ RunSmart VCR",
     copySuccess: "คัดลอกแล้ว!",
+    // Training Plan
+    planBtn: "สร้างตารางซ้อม 6 สัปดาห์",
+    planTitle: "ตารางฝึกซ้อม 6 สัปดาห์",
+    generatingPlan: "กำลังออกแบบตารางฝึกซ้อม...",
   }
 };
 
