@@ -100,6 +100,7 @@ const AiCoach: React.FC<AiCoachProps> = ({ data }) => {
             <div className="flex flex-wrap gap-2">
               {!advice && !loadingAdvice && (
                 <button
+                  type="button"
                   onClick={handleGetAdvice}
                   className="group flex items-center gap-2 bg-indigo-500 hover:bg-indigo-400 text-white px-4 py-2 rounded-lg font-semibold transition-all shadow-lg hover:shadow-indigo-500/25 text-sm"
                 >
@@ -111,6 +112,7 @@ const AiCoach: React.FC<AiCoachProps> = ({ data }) => {
               
               {!plan && !loadingPlan && (
                 <button
+                  type="button"
                   onClick={handleGetPlan}
                   className="group flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg font-semibold transition-all shadow-lg hover:shadow-emerald-500/25 text-sm"
                 >
@@ -139,6 +141,7 @@ const AiCoach: React.FC<AiCoachProps> = ({ data }) => {
               </div>
               <div className="mt-2 flex justify-end">
                 <button
+                  type="button"
                   onClick={() => handleShare(advice, t.shareTitle)}
                   className="flex items-center gap-2 text-indigo-300 hover:text-white text-xs font-medium transition-colors"
                 >
@@ -181,6 +184,7 @@ const AiCoach: React.FC<AiCoachProps> = ({ data }) => {
                 </div>
                 <div className="mt-3 flex justify-end">
                   <button
+                    type="button"
                     onClick={() => handleShare(plan, t.planTitle)}
                     className="flex items-center gap-2 bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-200 hover:text-white px-3 py-1.5 rounded-lg text-sm transition-colors"
                   >

@@ -8,7 +8,20 @@ const formatPace = (seconds: number): string => {
 };
 
 const getApiKey = () => {
-  return localStorage.getItem('gemini_api_key') || process.env.API_KEY;
+  const stored = localStorage.getItem('gemini_api_key');
+  if (stored) return stored;
+  
+  try {
+    // Safely check for process.env in browser environments
+    // @ts-ignore
+    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
+      // @ts-ignore
+      return process.env.API_KEY;
+    }
+  } catch (e) {
+    // Ignore ReferenceError or other errors accessing process
+  }
+  return null;
 };
 
 export const getCoachingAdvice = async (data: CalculationResult, lang: string): Promise<string> => {
