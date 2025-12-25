@@ -49,6 +49,9 @@ const translations = {
     saved: "Saved!",
     getFreeKey: "Get Free API Key",
     apiKeyPlaceholder: "Enter your API Key",
+    // About
+    aboutTitle: "About Developer",
+    contactLabel: "Contact Me",
     // Sharing
     shareBtn: "Share Analysis",
     shareTitle: "RunSmart VCR Analysis",
@@ -109,6 +112,9 @@ const translations = {
     saved: "บันทึกแล้ว!",
     getFreeKey: "รับ API Key ฟรี",
     apiKeyPlaceholder: "กรอก API Key ของคุณ",
+    // About
+    aboutTitle: "เกี่ยวกับผู้พัฒนา",
+    contactLabel: "ติดต่อผู้พัฒนา",
     // Sharing
     shareBtn: "แชร์ผลวิเคราะห์",
     shareTitle: "ผลวิเคราะห์ RunSmart VCR",
