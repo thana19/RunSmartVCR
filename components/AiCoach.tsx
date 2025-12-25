@@ -57,7 +57,7 @@ const AiCoach: React.FC<AiCoachProps> = ({ data }) => {
     if (!data || !content) return;
 
     const stats = `${t.thresholdPace}: ${formatPace(data.thresholdPace)}/km\n${t.vo2Max}: ${data.vo2MaxEstimate.toFixed(1)}`;
-    const textToShare = `${title}\n\n${stats}\n\n${content}\n\nVia RunSmart VCR`;
+    const textToShare = `${title}\n\n${stats}\n\n${content}\n\nVia RunSmart VCR https://vcr.thana.in.th/`;
 
     if (navigator.share) {
       try {
